@@ -48,6 +48,8 @@ current=$(current_metadata_version)
 debug=$(echo $@ || "" | grep debug)
 skip_release=$(echo $@ || "" | grep skip-release)
 
+echo "Current metadata version: $current...."
+
 if [[ $latest != $current ]]; then
     echo "$current is out of date. Updating to $latest..."
 
