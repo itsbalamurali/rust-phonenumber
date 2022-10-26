@@ -1,0 +1,28 @@
+name: Update metadata
+
+on:
+    workflow_dispatch:
+    schedule:
+      - cron: '0 */12 * * *' # Every 12 hours
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup Rust toolchain
+              uses: actions-rs/toolchain@v1
+              with:
+                profile: minimal
+                toolchain: stable
+
+            - name: Rust Cache
+              uses: Swatinem/rust-cache@v2
+
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Authorize
+              run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+            - name: Update Metadata
+              run: sh ./update_metadata.sh
