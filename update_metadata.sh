@@ -35,7 +35,7 @@ commit_changes() {
 
 # Exit when any command fails
 set -e
-set -o pipefail
+#set -o pipefail
 
 # Repos
 libphonenumber_repo="https://github.com/google/libphonenumber"
