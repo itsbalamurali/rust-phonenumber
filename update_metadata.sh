@@ -48,7 +48,8 @@ current=$(current_metadata_version)
 debug=$(echo $@ || "" | grep debug)
 skip_release=$(echo $@ || "" | grep skip-release)
 
-echo "Current metadata version: $current...."
+echo "Current metadata version: $current"
+echo "Latest metadata version: $latest"
 
 if [[ $latest != $current ]]; then
     echo "$current is out of date. Updating to $latest..."
@@ -66,7 +67,7 @@ if [[ $latest != $current ]]; then
             [ -d "${_dir}" ] && dir="${_dir}" && break
         done
         echo "Copying original metadata..."
-        cp -r "$scratch/$dir/resources" "$home/assets/"
+        cp -r "$scratch/$dir/resources/" "$home/assets/"
         cd $home
     )
 
@@ -74,7 +75,6 @@ if [[ $latest != $current ]]; then
     echo $latest > .metadata-version
 
     echo "Testing new metadata..."
-    cd ../..
     cargo test
     rm -rf target
 
